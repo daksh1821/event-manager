@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            margin: 0;
+        }
+        
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            display: inline-block;
+        }
+        
+        #hero {
+            background: #333;
+            color: #fff;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        #hero h2 {
+            margin: 0;
+        }
+        
+        #features {
+            padding: 20px 0;
+            background: #fff;
+        }
+        
+        #features .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        #features button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #features button:hover {
+            background: #555;
+        }
+        
+        #events {
+            padding: 20px 0;
+            background: #fff;
+            color: #333;
+        }
+        
+        #events .container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #events h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .event-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        
+        form {
+            background: #fff;
+            padding: 20px 50px;
+            margin: 20px;  
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        form input,
+        form textarea,
+        form button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        
+        form button {
+            background: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        form button:hover {
+            background: #555;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Create Event</h1>
+            <nav>
+                <a href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="create-event">
+            <div class="container">
+                <h2>Create a New Event</h2>
+                <form id="event-form">
+                    <label for="event-id">Event ID:</label>
+                    <input type="text" id="event-id" name="event-id" readonly>
+                    
+                    <label for="name">Event Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                    
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" required>
+                    
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description"></textarea>
+                    
+                    <button type="submit">Create Event</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EventPlanner360. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="js/scripts.js"></script>
+    <script>
+        document.getElementById('event-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+        
+            // Generate a random event ID
+            const eventId = 'EV' + Math.floor(Math.random() * 1000000);
+            document.getElementById('event-id').value = eventId;
+        
+            // Collect form data
+            const formData = {
+                eventId: eventId,
+                name: document.getElementById('name').value,
+                date: document.getElementById('date').value,
+                location: document.getElementById('location').value,
+                description: document.getElementById('description').value,
+            };
+        
+            // Send data to the server
+            try {
+                const response = await fetch('http://localhost:3000/create-event', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    alert(`Event Created with ID: ${result.eventId}`);
+                } else {
+                    alert('Failed to create event');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to create event');
+            }
+        });
+        
+    </script>
+</body>
+</html>

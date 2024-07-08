@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EventPlanner360</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .left-column, .right-column {
+            flex: 1;
+            padding: 20px;
+        }
+        .left-column img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .right-column form {
+            display: flex;
+            flex-direction: column;
+        }
+        .right-column label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .right-column input, .right-column textarea, .right-column select {
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .right-column button {
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .right-column button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EventPlanner360</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="service.html">Service</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div class="left-column">
+            <img src="image/wedding.png" alt="Wedding Image 1">
+            <img src="image/seminar.png" alt="Wedding Image 2">
+            <img src="image/birthday.png" alt="Wedding Image 3">
+        </div>
+        <div class="right-column">
+            <p>We would love to hear from you! To get started planning your event, please fill out the below form or email us at <a href="mailto:daksh2872004@gmail.com">daksh2872004@gmail.com</a>. We will get back to you within 48 hours.</p>
+            <p>Cheers,<br> Daksh Jain</p>
+            <form action="/submit-form" method="POST">
+                <label for="name">Name*</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="partner-name">Partner's Name*</label>
+                <input type="text" id="partner-name" name="partnerName" required>
+                
+                <label for="email">Your Email (required)</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="phone">Phone (required)</label>
+                <input type="text" id="phone" name="phone" required>
+                
+                <label for="location">Location (required)</label>
+                <input type="text" id="location" name="location" required>
+                
+                <label for="event-date">Event Date (required)</label>
+                <input type="date" id="event-date" name="eventDate" required>
+                
+                <label for="how-did-you-find">How did you find our website? (required)</label>
+                <input type="text" id="how-did-you-find" name="howDidYouFind" required>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

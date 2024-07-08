@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventPlanner360</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Add these styles to your CSS */
+        .nav-button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px #0056b3;
+            font-size: 16px;
+            transition: transform 0.1s;
+        }
+
+        .nav-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px #0056b3;
+        }
+
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+
+        .nav-button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>EventPlanner360</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="service.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <button class="nav-button" onclick="location.href='login.html'">Sign In</button>
+                <button class="nav-button" onclick="location.href='sign-up.html'">Sign Up</button>
+            </nav>
+        </div>
+    </header>
+    <section id="hero">
+        <div class="container">
+            <h2>Your One-Stop Event Management Platform</h2>
+            <p>Plan, organize, and oversee diverse events like conferences, weddings, and parties with ease.</p>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="image/concert.png" alt="Slide 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="image/wedding.png" alt="Slide 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="image/birthday.png" alt="Slide 3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="image/seminar.png" alt="Slide 4">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="image/exhibition.png" alt="Slide 5">
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <button id="contact-us" onclick="window.location.href='contact.html'">Contact Us</button>
+
+        </div>
+    </section>
+    
+    <section id="features">
+        <div class="overlay"></div>
+        <div class="container">
+            <h2>Our Features</h2>
+            <div class="features-grid">
+                <div class="feature-card" onclick="location.href='event.html'">
+                    <img src="images/create-event.jpg" alt="Create Event">
+                    <h3>Create Event</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='guest-list.html'">
+                    <img src="images/guest-list.jpg" alt="Guest List Management">
+                    <h3>Guest List Management</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='budget-tracking.html'">
+                    <img src="images/budget-tracking.jpg" alt="Budget Tracking">
+                    <h3>Budget Tracking</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='vendor-coordination.html'">
+                    <img src="images/vendor-coordination.jpg" alt="Vendor Coordination">
+                    <h3>Vendor Coordination</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='scheduling.html'">
+                    <img src="images/scheduling.jpg" alt="Scheduling">
+                    <h3>Scheduling</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='event-page.html'">
+                    <img src="images/event-page.jpg" alt="Personalized Event Pages">
+                    <h3>Personalized Event Pages</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='invitation-management.html'">
+                    <img src="images/invitation-management.jpg" alt="Invitation Management">
+                    <h3>Invitation Management</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='rsvp-tracking.html'">
+                    <img src="images/rsvp-tracking.jpg" alt="RSVP Tracking">
+                    <h3>RSVP Tracking</h3>
+                </div>
+                <div class="feature-card" onclick="location.href='payment-gateway.html'">
+                    <img src="images/payment-gateway.jpg" alt="Payment Gateway Integration">
+                    <h3>Payment Gateway Integration</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="events">
+        <div class="container">
+            <h2>Upcoming Events</h2>
+            <div id="event-list">
+                <!-- Event cards will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EventPlanner360. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          spaceBetween: 30,
+          centeredSlides: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
+    </script>
+</body>
+</html>

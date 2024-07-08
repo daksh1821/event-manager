@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracking</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f1f1f1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header nav a {
+            color: #4d4d4d;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1em;
+        }
+
+        #hero {
+            background: url('images/budget-tracking-hero.jpg') no-repeat center center/cover;
+            color: #313131;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        #hero h2 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        main {
+            padding: 20px 0;
+        }
+
+        .feature {
+            background: #a5a5a5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .feature form input,
+        .feature form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .feature form button {
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .feature form button:hover {
+            background: #45a049;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Budget Tracking</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="events.html">Events</a>
+                <a href="contacts.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+    <section id="hero">
+        <div class="container">
+            <h2>Manage Your Event Budget Efficiently</h2>
+        </div>
+    </section>
+    <main>
+        <div class="container">
+            <div class="feature">
+                <h3>Add New Expense</h3>
+                <form id="budget-form">
+                    <label for="event-id">Event ID:</label>
+                    <input type="text" id="event-id" name="event-id" required>
+                    
+                    <label for="expense">Expense:</label>
+                    <input type="text" id="expense" name="expense" required>
+                    
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required>
+                    
+                    <button type="submit">Add Expense</button>
+                </form>
+            </div>
+            <div class="feature">
+                <h3>Recent Expenses</h3>
+                <div id="recent-expenses">
+                    <!-- Dynamically loaded recent expenses will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 EventPlanner360. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const budgetForm = document.getElementById('budget-form');
+            
+            if (budgetForm) {
+                budgetForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = {
+                        eventId: e.target['event-id'].value,
+                        expense: e.target['expense'].value,
+                        amount: e.target['amount'].value
+                    };
+                    await submitForm('budget', formData);
+                    budgetForm.reset();
+                });
+            }
+        
+            async function submitForm(endpoint, formData) {
+                try {
+                    const response = await fetch(`http://localhost:3006/api/${endpoint}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const result = await response.json();
+                    alert(`Expense added successfully!`);
+                    loadRecentExpenses();
+                } catch (err) {
+                    console.error('Error:', err);
+                    alert(`Failed to add expense`);
+                }
+            }
+        
+            async function loadRecentExpenses() {
+                try {
+                    const response = await fetch('http://localhost:3006/api/budget/recent');
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const expenses = await response.json();
+                    const recentExpensesDiv = document.getElementById('recent-expenses');
+                    recentExpensesDiv.innerHTML = '';
+        
+                    expenses.forEach(expense => {
+                        const expenseCard = document.createElement('div');
+                        expenseCard.className = 'expense-card';
+                        expenseCard.innerHTML = `
+                            <p><strong>Event ID:</strong> ${expense.eventId}</p>
+                            <p><strong>Expense:</strong> ${expense.expense}</p>
+                            <p><strong>Amount:</strong> ${expense.amount}</p>
+                        `;
+                        recentExpensesDiv.appendChild(expenseCard);
+                    });
+                } catch (err) {
+                    console.error('Error:', err);
+                }
+            }
+        
+            if (document.getElementById('recent-expenses')) {
+                loadRecentExpenses();
+            }
+        });
+        
+    </script>
+</body>
+</html>
